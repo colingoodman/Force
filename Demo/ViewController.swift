@@ -71,35 +71,35 @@ class ViewController: UIViewController {
         
         let size = 5
         var particles: [ViewParticle] = []
-        for _ in 0..<(size * size) {
-            particles.append(particle(color: UIColor(rgbaValue: 0x4CB3BCFF)))
-        }
-        
-        for y in 0..<size {
-            for x in 0..<size {
-                let current = y * size + x
-                if x < size - 1 {
-                    links.link(between: particles[current], and: particles[current + 1])
-                }
-                if y < size - 1 {
-                    links.link(between: particles[current], and: particles[current + size])
-                }
-            }
-        }
-        
-//        let a = particle(color: UIColor(rgbaValue: 0xCC4250FF))
-//        let b = particle(color: UIColor(rgbaValue: 0x43BD47FF))
-//        let c = particle(color: UIColor(rgbaValue: 0x43BD47FF))
-//        let d = particle(color: UIColor(rgbaValue: 0x4CB3BCFF))
-//        let e = particle(color: UIColor(rgbaValue: 0x4CB3BCFF))
-//        let f = particle(color: UIColor(rgbaValue: 0xCB824AFF))
+//        for _ in 0..<(size * size) {
+//            particles.append(particle(color: UIColor(rgbaValue: 0x4CB3BCFF)))
+//        }
 //        
-//        links.link(between: a, and: b, distance: 100)
-//        links.link(between: a, and: c, distance: 100)
-//        links.link(between: c, and: b, distance: 40)
-//        links.link(between: d, and: b, distance: 100)
-//        links.link(between: e, and: c, distance: 100)
-//        links.link(between: e, and: f, distance: 100)
+//        for y in 0..<size {
+//            for x in 0..<size {
+//                let current = y * size + x
+//                if x < size - 1 {
+//                    links.link(between: particles[current], and: particles[current + 1])
+//                }
+//                if y < size - 1 {
+//                    links.link(between: particles[current], and: particles[current + size])
+//                }
+//            }
+//        }
+        
+        let a = particle(color: UIColor(rgbaValue: 0xCC4250FF))
+        let b = particle(color: UIColor(rgbaValue: 0x43BD47FF))
+        let c = particle(color: UIColor(rgbaValue: 0x43BD47FF))
+        let d = particle(color: UIColor(rgbaValue: 0x4CB3BCFF))
+        let e = particle(color: UIColor(rgbaValue: 0x4CB3BCFF))
+        let f = particle(color: UIColor(rgbaValue: 0xCB824AFF))
+
+        links.link(between: a, and: b, distance: 100)
+        links.link(between: a, and: c, distance: 100)
+        links.link(between: c, and: b, distance: 40)
+        links.link(between: d, and: b, distance: 100)
+        links.link(between: e, and: c, distance: 100)
+        links.link(between: e, and: f, distance: 100)
     }
     
     override func viewWillLayoutSubviews() {
@@ -118,7 +118,7 @@ class ViewController: UIViewController {
     }
     
     @objc private func dragged(_ gestureRecognizer: UIPanGestureRecognizer) {
-        guard let view = gestureRecognizer.view, let index = simulation.particles.index(of: ViewParticle(view: view)) else { return }
+        guard let view = gestureRecognizer.view, let index = simulation.particles.firstIndex(of: ViewParticle(view: view)) else { return }
         var particle = simulation.particles[index]
         switch gestureRecognizer.state {
         case .began:

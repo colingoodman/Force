@@ -60,12 +60,12 @@ public class Simulation<T: Particle> {
     public func start() {
         guard displayLink == nil else { return }
         let link = CADisplayLink(target: self, selector: #selector(tick))
-        link.add(to: RunLoop.main, forMode: .commonModes)
+        link.add(to: RunLoop.main, forMode: RunLoop.Mode.common)
         displayLink = link
     }
     
     public func stop() {
-        displayLink?.remove(from: RunLoop.main, forMode: .commonModes)
+        displayLink?.remove(from: RunLoop.main, forMode: RunLoop.Mode.common)
     }
     
     public func kick() {

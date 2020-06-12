@@ -18,6 +18,8 @@ fileprivate struct Link<T: Particle>: Hashable {
         return a.hashValue ^ b.hashValue
     }
     
+    
+    
     init(between a: T, and b: T, strength: CGFloat? = nil, distance: CGFloat? = nil) {
         self.a = a
         self.b = b
@@ -26,8 +28,8 @@ fileprivate struct Link<T: Particle>: Hashable {
     }
     
     public func tick(alpha: CGFloat, degrees: Dictionary<T, UInt>, distance: CGFloat, particles: inout Set<T>) {
-        guard let fromIndex = particles.index(of: a),
-            let toIndex = particles.index(of: b) else { return }
+        guard let fromIndex = particles.firstIndex(of: a),
+            let toIndex = particles.firstIndex(of: b) else { return }
         
         var from = particles[fromIndex]
         var to = particles[toIndex]
@@ -85,8 +87,8 @@ public final class Links<T: Particle>: Force {
     public func path(from particles: inout Set<T>) -> CGPath {
         let path = CGMutablePath()
         for link in links {
-            guard let fromIndex = particles.index(of: link.a),
-                let toIndex = particles.index(of: link.b) else { continue }
+            guard let fromIndex = particles.firstIndex(of: link.a),
+                let toIndex = particles.firstIndex(of: link.b) else { continue }
             path.move(to: particles[fromIndex].position)
             path.addLine(to: particles[toIndex].position)
         }

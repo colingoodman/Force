@@ -47,8 +47,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         
-        func particle(color: UIColor) -> ViewParticle {
-            let view = UIView()
+        func particle(index: Int) -> ViewParticle {
+            let image = UIImage(named: "stock.\(index)")
+            let view = UIImageView(image: image)
+            view.isUserInteractionEnabled = true
             view.center = CGPoint(x: CGFloat(arc4random_uniform(320)), y: -CGFloat(arc4random_uniform(100)))
             view.bounds = CGRect(x: 0, y: 0, width: 50, height: 50)
             self.view.addSubview(view)
@@ -56,21 +58,24 @@ class ViewController: UIViewController {
             let gestureRecogizer = UIPanGestureRecognizer(target: self, action: #selector(dragged(_:)))
             view.addGestureRecognizer(gestureRecogizer)
             
-            let layer = CAShapeLayer()
-            layer.frame = view.bounds
-            layer.path = UIBezierPath(ovalIn: CGRect(x: 10, y: 10, width: 30, height: 30)).cgPath
-            layer.fillColor = color.cgColor
-            layer.strokeColor = UIColor.gray.cgColor
-            layer.lineWidth = 2
-            view.layer.addSublayer(layer)
+            view.layer.cornerRadius = view.frame.size.width / 2
+            view.layer.masksToBounds = true
+            
+//            let layer = CAShapeLayer()
+//            layer.frame = view.bounds
+//            layer.path = UIBezierPath(ovalIn: CGRect(x: 10, y: 10, width: 30, height: 30)).cgPath
+//            layer.fillColor = color.cgColor
+//            layer.strokeColor = UIColor.gray.cgColor
+//            layer.lineWidth = 2
+//            view.layer.addSublayer(layer)
             
             let particle = ViewParticle(view: view)
             simulation.insert(particle: particle)
             return particle
         }
         
-        let size = 5
-        var particles: [ViewParticle] = []
+//        let size = 5
+//        var particles: [ViewParticle] = []
 //        for _ in 0..<(size * size) {
 //            particles.append(particle(color: UIColor(rgbaValue: 0x4CB3BCFF)))
 //        }
@@ -87,12 +92,12 @@ class ViewController: UIViewController {
 //            }
 //        }
         
-        let a = particle(color: UIColor(rgbaValue: 0xCC4250FF))
-        let b = particle(color: UIColor(rgbaValue: 0x43BD47FF))
-        let c = particle(color: UIColor(rgbaValue: 0x43BD47FF))
-        let d = particle(color: UIColor(rgbaValue: 0x4CB3BCFF))
-        let e = particle(color: UIColor(rgbaValue: 0x4CB3BCFF))
-        let f = particle(color: UIColor(rgbaValue: 0xCB824AFF))
+        let a = particle(index: 36)
+        let b = particle(index: 37)
+        let c = particle(index: 38)
+        let d = particle(index: 39)
+        let e = particle(index: 40)
+        let f = particle(index: 41)
 
         links.link(between: a, and: b, distance: 100)
         links.link(between: a, and: c, distance: 100)
